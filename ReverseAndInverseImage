@@ -1,0 +1,56 @@
+/*
+* https://leetcode.com/problems/flipping-an-image/description/
+*/
+
+class Solution {
+    public int[][] flipAndInvertImage(int[][] A) {
+        
+        for (int rowIndex = 0; rowIndex < A.length; rowIndex++){
+
+            int[] currentRow = A[rowIndex];
+            int[] horizontallyFlippedRow = this.reverse(currentRow);
+            int[] inversedHorizontallyFlipped = this.inverse(horizontallyFlippedRow);
+            
+            A[rowIndex] = inversedHorizontallyFlipped;
+        }
+        
+        return A;
+    }
+    
+    /**
+    * Given an int array, reverse it's contents.
+    * e.g:
+    * if original = [0, 0, 1] result = [1, 0, 0]. 
+    */
+    private int[] reverse (int[] original){
+        
+        int[] results = new int[original.length];
+        
+        for (int index = 0; index <= original.length/2; index++){
+            
+            int complementIndex = original.length - index - 1;
+
+            int originalValue = original[index];
+            int newValue = original[complementIndex];
+            
+            results[index] = newValue;
+            results[complementIndex] = originalValue;
+        }  
+        
+        return results;
+    }
+    
+    /**
+    * Will switch every 0 to 1, and 1 to 0. 
+    * Input: An int[] of 0's and 1's. 
+    */
+    private int[] inverse (int[] original){
+        
+        int[] inversed = new int[original.length];
+        for (int index = 0; index < inversed.length; index++){
+            inversed[index] = original[index] == 1 ? 0 : 1;
+        }
+        
+        return inversed;
+    }
+}
